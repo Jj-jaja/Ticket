@@ -1,0 +1,44 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Log ข้อมูลบัตร</title>
+</head>
+<body>
+  <h1>Log การจองบัตร</h1>
+  <table border="1" cellpadding="5" cellspacing="0">
+    <thead>
+      <tr>
+        <th>ลำดับ</th>
+        <th>ชื่อ</th>
+        <th>จำนวน</th>
+        <th>สถานะ</th>
+        <th>เวลา</th>
+      </tr>
+    </thead>
+    <tbody id="logBody">
+    </tbody>
+  </table>
+
+  <script>
+    const logs = JSON.parse(localStorage.getItem('ticketLogs') || '[]');
+    const tbody = document.getElementById('logBody');
+
+    if (logs.length === 0) {
+      tbody.innerHTML = '<tr><td colspan="5" style="text-align:center;">ไม่มีข้อมูลการจอง</td></tr>';
+    } else {
+      logs.forEach((log, index) => {
+        const tr = document.createElement('tr');
+        tr.innerHTML = `
+          <td>${index + 1}</td>
+          <td>${log.name}</td>
+          <td>${log.qty}</td>
+          <td>${log.status}</td>
+          <td>${log.time}</td>
+        `;
+        tbody.appendChild(tr);
+      });
+    }
+  </script>
+</body>
+</html>

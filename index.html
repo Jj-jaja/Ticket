@@ -1,21 +1,43 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
-<body>
+<!doctype html>
+<html>
+  <head><meta charset="utf-8"><title>Mock Ticket Page</title></head>
+  <body>
     <h1>Mock Concert Ticket</h1>
     <form id="buy-form">
-        <label>ชื่อ: <input id="name" /></label><br/>
-        <label>จำนวน: 
-            <select id="qty">
-                <option>1</option><option>2</option><option>3</option>
-            </select>
-        </label><br/>
-        <button id="buy-btn" type="button" onclick="document.getElementById('status').innerText='จองเรียบร้อย'">ซื้อ</button>
+      <label>ชื่อ: <input id="name" /></label><br/>
+      <label>จำนวน: 
+        <select id="qty">
+          <option>1</option><option>2</option><option>3</option>
+        </select>
+      </label><br/>
+      <button id="buy-btn" type="button">ซื้อ</button>
     </form>
     <p id="status"></p>
-</body>
+
+    <a href="save.html">หน้าเก็บข้อมูล</a>
+
+    <script>
+      document.getElementById('buy-btn').addEventListener('click', function() {
+        const name = document.getElementById('name').value || 'ไม่ระบุชื่อ';
+        const qty = document.getElementById('qty').value;
+        const status = 'จองเรียบร้อย';
+        const time = new Date().toLocaleString();
+
+        // สร้าง object log รายการใหม่
+        const newLog = { name, qty, status, time };
+
+        // ดึง log เก่าจาก localStorage (ถ้าไม่มีให้เริ่มเป็น array ว่าง)
+        let logs = JSON.parse(localStorage.getItem('ticketLogs') || '[]');
+
+        // เพิ่ม log ใหม่เข้า array
+        logs.push(newLog);
+
+        // เก็บกลับ localStorage
+        localStorage.setItem('ticketLogs', JSON.stringify(logs));
+
+        // แสดงสถานะ
+        document.getElementById('status').innerText = `จองเรียบร้อย เวลา: ${time}`;
+      });
+    </script>
+  </body>
 </html>

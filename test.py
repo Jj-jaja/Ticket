@@ -9,7 +9,7 @@ driver = webdriver.Chrome()
 
 try:
     # เปิดไฟล์ local (ปรับ path ให้ตรงเครื่องของคุณ)
-    driver.get("file:///full/path/to/index.html")  # ตัวอย่าง: file:///C:/Users/me/local_test.html
+    driver.get("https://jj-jaja.github.io/Ticket/")  # ตัวอย่าง: file:///C:/Users/me/local_test.html
 
     wait = WebDriverWait(driver, 10)
 
@@ -31,7 +31,7 @@ try:
 
     # ตรวจสถานะ
     status = wait.until(EC.text_to_be_present_in_element((By.ID, "status"), "จองเรียบร้อย"))
-    print("Status text updated — test successful")
+    print("test successful")
 
 finally:
     driver.quit()
